@@ -45,6 +45,8 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxkotlin:${versions.rx}"
     implementation "io.reactivex.rxjava3:rxandroid:${versions.rxAndroid}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:adapter-rxjava3:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
