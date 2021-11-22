@@ -5,8 +5,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+private const val THROTTLE_TIME_MILLIS = 1500L
 /**
  * Presenter responsible for reacting to user inputs and initiating search queries.
  */
@@ -22,6 +24,7 @@ class UserSearchPresenter @Inject constructor(
     this.view = view
 
     searchQueryDisposable = searchQuerySubject
+        .throttleLatest(THROTTLE_TIME_MILLIS, TimeUnit.MILLISECONDS)
         .flatMapSingle { searchTerm ->
           if (searchTerm.isEmpty()) {
             Single.just(emptySet())
