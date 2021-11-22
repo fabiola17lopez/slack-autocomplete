@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slack.exercise.R
 import com.slack.exercise.model.UserSearchResult
-import kotlinx.android.synthetic.main.item_user_search.view.username
+import kotlinx.android.synthetic.main.item_user_search.view.*
 
 /**
  * Adapter for the list of [UserSearchResult].
@@ -30,10 +30,13 @@ class UserSearchAdapter : RecyclerView.Adapter<UserSearchAdapter.UserSearchViewH
   }
 
   override fun onBindViewHolder(holder: UserSearchViewHolder, position: Int) {
-    holder.username.text = userSearchResults[position].username
+    val result = userSearchResults[position]
+    holder.username.text = result.username
+    holder.displayName.text = result.displayName
   }
 
   class UserSearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val username: TextView = itemView.username
+    val displayName: TextView = itemView.displayName
   }
 }

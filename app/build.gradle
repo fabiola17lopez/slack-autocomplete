@@ -40,6 +40,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
     implementation "io.reactivex.rxjava3:rxkotlin:${versions.rx}"
     implementation "io.reactivex.rxjava3:rxandroid:${versions.rxAndroid}"
