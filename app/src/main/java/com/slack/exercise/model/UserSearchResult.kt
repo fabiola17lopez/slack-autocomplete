@@ -5,5 +5,6 @@ package com.slack.exercise.model
  */
 data class UserSearchResult(
     val username: String,
-    val displayName: String
+    val displayName: String,
+    val avatarUrl: String
 )
