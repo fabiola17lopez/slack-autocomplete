@@ -12,7 +12,7 @@ import javax.inject.Singleton
  * Component providing Application scoped instances.
  */
 @Singleton
-@Component(modules = [AppModule::class, AndroidInjectionModule::class, BindingModule::class])
+@Component(modules = [AppModule::class, ContextModule::class, AndroidInjectionModule::class, BindingModule::class])
 interface AppComponent : AndroidInjector<DaggerApplication> {
   fun userSearchResultDataProvider(): UserSearchResultDataProvider
 }
