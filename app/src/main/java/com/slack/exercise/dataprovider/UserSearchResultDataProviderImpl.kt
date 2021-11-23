@@ -1,7 +1,6 @@
 package com.slack.exercise.dataprovider
 
 import android.content.Context
-import android.util.Log
 import com.slack.exercise.R
 import com.slack.exercise.api.SlackApi
 import com.slack.exercise.dataprovider.trie.DenyListTrie
@@ -58,8 +57,13 @@ class UserSearchResultDataProviderImpl @Inject constructor(
     override fun fetchUsers(searchTerm: String): Single<Set<UserSearchResult>> {
         return checkDenyList(searchTerm) { term ->
             slackApi.searchUsers(term)
-                .map {
-                    it.map { user ->
+                .map { searchResults ->
+                    // if the API returns no results, the search term is added to the denylist
+                    if (searchResults.isEmpty()) {
+                        denyList.insert(term)
+                    }
+
+                    searchResults.map { user ->
                         UserSearchResult(user.username, user.displayName, user.avatarUrl)
                     }.toSet()
                 }
@@ -69,8 +73,8 @@ class UserSearchResultDataProviderImpl @Inject constructor(
     /**
      * Checks [DenyListTrie] for search term.
      *
-     * Returns an empty set if a prefix exists in the denylist, otherwise returns the result of the
-     * provided block.
+     * Returns an empty set if the search term matches or starts with anything found in the
+     * denylist, otherwise returns the result of the provided block.
      */
     private fun checkDenyList(
         searchTerm: String,
