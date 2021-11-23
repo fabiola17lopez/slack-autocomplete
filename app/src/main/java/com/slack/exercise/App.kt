@@ -1,5 +1,6 @@
 package com.slack.exercise
 
+import com.slack.exercise.dagger.ContextModule
 import com.slack.exercise.dagger.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -16,6 +17,9 @@ class App : DaggerApplication() {
   }
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-    return DaggerAppComponent.create()
+    return DaggerAppComponent
+      .builder()
+      .contextModule(ContextModule(this))
+      .build()
   }
 }
