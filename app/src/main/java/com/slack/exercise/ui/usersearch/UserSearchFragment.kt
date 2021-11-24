@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.slack.exercise.R
 import com.slack.exercise.databinding.FragmentUserSearchBinding
 import com.slack.exercise.model.UserSearchResult
+import com.slack.exercise.model.UserSearchState
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
@@ -70,12 +71,32 @@ class UserSearchFragment : DaggerFragment(), UserSearchContract.View {
   }
 
   override fun onUserSearchResults(results: Set<UserSearchResult>) {
-    val adapter = userSearchBinding.userSearchResultList.adapter as UserSearchAdapter
-    adapter.setResults(results)
+    userSearchBinding.apply {
+      val searchAdapter = userSearchResultList.adapter as UserSearchAdapter
+      searchAdapter.setResults(results)
+
+      userSearchResultList.visibility = View.VISIBLE
+      noResults.visibility = View.INVISIBLE
+      errorText.visibility = View.INVISIBLE
+    }
+  }
+
+  override fun onEmptySearchResults() {
+    userSearchBinding.apply {
+      userSearchResultList.visibility = View.INVISIBLE
+      noResults.visibility = View.VISIBLE
+      errorText.visibility = View.INVISIBLE
+    }
   }
 
   override fun onUserSearchError(error: Throwable) {
     Timber.e(error, "Error searching users.")
+
+    userSearchBinding.apply {
+      userSearchResultList.visibility = View.INVISIBLE
+      noResults.visibility = View.INVISIBLE
+      errorText.visibility = View.VISIBLE
+    }
   }
 
   private fun setUpToolbar() {
