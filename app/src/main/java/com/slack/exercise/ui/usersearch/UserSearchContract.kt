@@ -17,6 +17,11 @@ interface UserSearchContract {
     fun onUserSearchResults(results: Set<UserSearchResult>)
 
     /**
+     * Call when no results are returned.
+     */
+    fun onEmptySearchResults()
+
+    /**
      * Call when an error occurs during the execution of search queries.
      */
     fun onUserSearchError(error: Throwable)
